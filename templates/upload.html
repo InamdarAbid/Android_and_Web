@@ -4,14 +4,38 @@
 	<meta charset="UTF-8">
 	<title>Upload a file</title>
 	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+	<style type="text/css" media='screen'>
+		#first{
+			
+		}		
+		#uploader{
+			width: 100%;
+		}
+		
+	</style>
 	
 </head>
 
 <body>
+	<div class="container">
+	    <div class="col-sm-6" id = "first" style="background-color: green;
+			min-height: 100%;">
+			<h4 style="margin-bottom: 1em;">Select files from your computer</h4>
+			<center><input type="file" name="files" id="fileButton"></center><br>	
+			<progress value="0" max="100" id="uploader">0%</progress>		
+		</div
+>    </div>
+	
 	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
-	
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-storage.js"></script>
   	<script>
 	  // Initialize Firebase
 	  var config = {
@@ -23,8 +47,44 @@
 	    messagingSenderId: "54764554067"
 	  };
 	  firebase.initializeApp(config);
+	  
+	  var uploader = document.getElementById('uploader');
+	  var filebutton  = document.getElementById('fileButton')
+
+	  filebutton.addEventListener('change',function(e){
+	  	//get file
+	  	var file = e.target.files[0];
+	  	var anonymous = "anonymous";
+	  	var database = firebase.database(); 
+	  	//create stirage ref
+	  	var storagere = firebase.storage().ref('Images/' + file.name);
+	  	var chat = {"name": "anonymous",photoUrl:storagere};  
+	  	var databaseval = firebase.database().ref();
+	  	console.log(databaseval);
+	  	//upload file
+	  	var task = storagere.put(file);
+	  	// consol.log(storagere);
+	  	
+	  	databaseval..child('imgPath/').put(chat);
+	  	//update progress bar
+	  	task.on('state_changed',
+	  		function progress(snapshot){
+	  			var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+	  			uploader.value = percent;
+	  		},
+	  		function error(err){
+
+	  		},
+	  		function complete(){
+
+	  		}
+	  		);
+	  });
+
 	</script>  
 
+
+	
 
 </body>
 </html>
