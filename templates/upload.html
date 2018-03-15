@@ -4,11 +4,12 @@
 	<meta charset="UTF-8">
 	<title>Upload a file</title>
 	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<style type="text/css" media='screen'>
 		#first{
@@ -24,7 +25,7 @@
 
 <body>
 	<div class="container">
-	    <div class="col-sm-6" id = "first" style="background-color: green;
+	    <div class="col-sm-6" id = "first" style="background-color: white;
 			min-height: 100%;">
 			<h4 style="margin-bottom: 1em;">Select files from your computer</h4>
 			<center><input type="file" name="files" id="fileButton"></center><br>	
@@ -58,15 +59,23 @@
 	  	var database = firebase.database(); 
 	  	//create stirage ref
 	  	var storagere = firebase.storage().ref('Images/' + file.name);
-	  	var chat = {"name": "anonymous",photoUrl:storagere};  
-	  	var databaseval = firebase.database().ref();
-	  	console.log(databaseval);
+	  	  
+	  	var databaseval = firebase.database().ref().child('imgPath');
+	  	
 	  	//upload file
 	  	var task = storagere.put(file);
-	  	// consol.log(storagere);
-	  	
-	  	databaseval..child('imgPath/').put(chat);
+	  	 	
 	  	//update progress bar
+	  	task.then((snapshot) => {
+		    var imagegpath = (snapshot.downloadURL);
+		    var data = {
+		  		name: "webimage",
+		  		photoUrl:imagegpath
+		  	};
+		    // console.log(imagegpath);
+		    databaseval.push(data);
+
+		});
 	  	task.on('state_changed',
 	  		function progress(snapshot){
 	  			var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
@@ -75,16 +84,12 @@
 	  		function error(err){
 
 	  		},
-	  		function complete(){
-
+	  		function complete(snapshot){
+	  			var imagegpath = snapshot.downloadURL;
 	  		}
 	  		);
 	  });
 
-	</script>  
-
-
-	
-
+	</script> 
 </body>
 </html>
