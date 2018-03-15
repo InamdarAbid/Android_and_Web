@@ -3,7 +3,7 @@ import os
 from firebase import firebase
 import pyrebase
 import base64
-
+import json
 import webbrowser
 import urllib
 import requests 
@@ -29,8 +29,16 @@ def select():
 
 @app.route('/retrive', methods = ['GET','POST'])
 def retrive():	
-	firebase1 = firebase.FirebaseApplication('https://friendlychat-3d8f7.firebaseio.com/imgPath/-L7SGb_ZY75OcivKMAxp', None)
-	result = firebase1.get('/imgPath/-L7SGb_ZY75OcivKMAxp/photoUrl', None)
+	firebase1 = firebase.FirebaseApplication('https://friendlychat-3d8f7.firebaseio.com/imgPath/', None)
+	result = firebase1.get('/imgPath', None)
+	print(type(result))
+	for i in result:
+		for k in result[i]:
+			print (result[i][k])
+	# for k in result.items():
+	# 	print(k);
+
+	return jsonify({'ans':json_object})
 	# webbrowser.open(result)		
 	r = requests.get(result, allow_redirects=True)
 	open('google.jpeg', 'wb').write(r.content)

@@ -62,12 +62,14 @@
 	  	  
 	  	var databaseval = firebase.database().ref().child('imgPath');
 	  	
+	  	
+
 	  	//upload file
 	  	var task = storagere.put(file);
-	  	 	
-	  	//update progress bar
+	  	var imagegpath="";
+
 	  	task.then((snapshot) => {
-		    var imagegpath = (snapshot.downloadURL);
+		    imagegpath = (snapshot.downloadURL);
 		    var data = {
 		  		name: "webimage",
 		  		photoUrl:imagegpath
@@ -76,6 +78,9 @@
 		    databaseval.push(data);
 
 		});
+		 	
+	  	//update progress bar
+
 	  	task.on('state_changed',
 	  		function progress(snapshot){
 	  			var percent = snapshot.bytesTransferred / snapshot.totalBytes * 100;
@@ -85,7 +90,12 @@
 
 	  		},
 	  		function complete(snapshot){
-	  			var imagegpath = snapshot.downloadURL;
+	  			// var database = databaseval.on('value',snap => console.log(snap.val()));
+	  	// 		Object.keys(obj).forEach(function(key) {
+				//   var value = obj[key];
+				//   // do what you need to here
+				// });
+	  			console.log(imagegpath);
 	  		}
 	  		);
 	  });
