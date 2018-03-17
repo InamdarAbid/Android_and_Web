@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify,render_template
 import os
+import subprocess
 from firebase import firebase
 import pyrebase
 import base64
@@ -13,19 +14,15 @@ app = Flask(__name__)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__)) 
 
 @app.route('/', methods = ["GET","POST"])
-def add():
-	num1 = int(request.args.get('val1'))
-	num2 = int(request.args.get('val2'))
-	res = num1 + num2
-	res2 = num1 * num2
-	return jsonify({'ans' : str(res),'ans2' : str(res2)})
+def index():
+	return render_template('index.html')	
 	
 @app.route('/select', methods = ["GET","POST"])
 def select():
 	return render_template('upload.html')	
 
 
-	
+
 
 @app.route('/retrive', methods = ['GET','POST'])
 def retrive():	
@@ -34,13 +31,15 @@ def retrive():
 	print(type(result))
 	for i in result:
 		for k in result[i]:
-			print (result[i][k])
+			imageurl = result[i][k]
+	print(imageurl)
+
 	# for k in result.items():
 	# 	print(k);
 
-	return jsonify({'ans':json_object})
+	# return jsonify({'ans':result})
 	# webbrowser.open(result)		
-	r = requests.get(result, allow_redirects=True)
+	r = requests.get(imageurl, allow_redirects=True)
 	open('google.jpeg', 'wb').write(r.content)
 	return ("Image Downloaded")
 

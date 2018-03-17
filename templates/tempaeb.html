@@ -4,43 +4,40 @@
 	<meta charset="UTF-8">
 	<title>Upload a file</title>
 	<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<style type="text/css" media='screen'>
+		#first{
 				
+		}		
 		#uploader{
 			width: 100%;
 		}
-		.containerfluid{
+		html, body  {
 		    height: 100%;
-		    min-height: 100%;
-		    color: white;
 		}
-		#intro {
-		    min-height: 100vh;
-		    background-image: url("/static/back.jpg");
-		    background-size: cover;
-		    background-repeat: no-repeat;
-		    background-position: center;
-		    display: flex; /* NEW */
-		}
-		h1{
-			text-align: center;
-		}
-	</style>
 
+	</style>
 	
 </head>
 
 <body>
-	<div class="containerfluid">
-	    <section id="intro">  
-            <h1 class="col-sm-12">We Develop the UNDEVELOPED</h1></center>
-		</section>
+	<div class="container fill">
+	    <div class="col-sm-6" id = "first" style="background-color: green;
+			">
+			<h4 style="margin-bottom: 1em;">Select files from your computer</h4>
+			<center><input type="file" name="files" id="fileButton"></center><br>	
+			<progress value="0" max="100" id="uploader">0%</progress>	
+			<form action="/retrive">
+				<center><button type="submit" class="btn btn-success">Get Result</button></center>
+			</form>	
+		</div>
+
     </div>
 	
 	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
