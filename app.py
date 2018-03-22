@@ -7,7 +7,16 @@ import base64
 import json
 import webbrowser
 import urllib
+import glob
+import cv2
+from PIL import Image, ImageChops
+import numpy as np
 import requests 
+
+import lineseg
+import textseg
+import char_binarize
+import char_padding
 app = Flask(__name__)
 
 
@@ -21,6 +30,11 @@ def index():
 def select():
 	return render_template('upload.html')	
 
+def black_and_white(input_image_path,
+    output_image_path):
+   color_image = Image.open(input_image_path)
+   bw = color_image.convert('L')
+   bw.save(output_image_path)
 
 
 
@@ -41,7 +55,46 @@ def retrive():
 	# webbrowser.open(result)		
 	r = requests.get(imageurl, allow_redirects=True)
 	open('google.jpeg', 'wb').write(r.content)
+	
+	# col = Image.open("google.jpeg")
+	# gray = col.convert('L')
+	# bw = gray.point(lambda x: 0 if x<128 else 255, '1')
+	# bw.save("result_bw.jpeg")
+	
+	
+	# img = cv2.imread('google.jpeg',0)
+	# ret,thresh=cv2.threshold(img, 100, 255, cv2.THRESH_OTSU)
+
+	# cv2.imshow('image',thresh)
+	# cv2.waitKey(1000)
+	# cv2.destroyAllWindows()
+	# # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	# cv2.imwrite('google1.jpeg',thresh)
+	
+	size = (700,700)
+
+	image = Image.open('google.jpeg')
+	image.thumbnail(size, Image.ANTIALIAS)
+	image_size = image.size
+	thumb = image.crop( (0, 0, size[0], size[1]) )
+
+	offset_x = max( (size[0] - image_size[0]) // 2, 0 )
+	offset_y = max( (size[1] - image_size[1]) // 2, 0 )
+
+	image = ImageChops.offset(thumb, offset_x, offset_y)
+	thumb.save('cropped.jpg')
+	black_and_white('cropped.jpg',
+        'bw_cropped.jpg')
+
+	lineseg.Lineseg()
+	textseg.Textseg()
+	cv2.destroyWindow("Detected text")
+	char_binarize.Char_binarize()
+	char_padding.Char_padding()
 	return ("Image Downloaded")
+	# open('google.jpeg', 'wb').write(r.content)
+
+	# return ("Image Downloaded")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8098, debug=True)
