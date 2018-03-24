@@ -28,7 +28,7 @@
 			  <div class="collapse navbar-collapse" id="navbarNav">
 				  <div class="mr-auto"></div>
 			    <ul class="navbar-nav">
-			      <li class="nav-item active">
+			      <li class="nav-item">
 			        <a class="nav-link smooth-link" href="#hero">Home</a>
 			      </li>			      
 			    </ul>
@@ -41,23 +41,14 @@
 		<section class="hero bg-overlay" id="hero" data-bg="/static/img/background.jpg">
 			<div class="text py-5">
 				
-				<h1>Your Output is generated <b>Successfully</b></h1>
+				<h1>Your Output is </h1>
 				<div class="cta">
-					<a href="#features" class="btn btn-primary smooth-link">Output</a>	
+					<p>{{ result }}</p>
 				</div>
 			</div>
 		</section>
 
-		<section class="padding" id="features">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12" id = "first">
-						<center><h4 style="margin-bottom: 1em;">{{result}}</h4></center>
-							
-					</div>
-				</div>
-			</div>
-		</section>
+		
 
 
 		<footer>

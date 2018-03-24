@@ -12,6 +12,16 @@
 		<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/static/sweetalert/dist/sweetalert.css">
 		<link rel="stylesheet" href="/static/css/stisla.css">
+		<style type="text/css">
+		.btn{
+			cursor: pointer; 
+		}
+		.btn:hover{
+			background-color: #fff;
+    		color: #000;
+		}
+		</style>
+
 	</head>
 
 	<body>
@@ -62,13 +72,14 @@
 
 		<section class="padding" id="features">
 			<div class="container">
+				<center><h2 class="section-title"> OCR </h2></center>
 				<div class="row">
 					<div class="col-sm-12" id = "first">
-						<center><h4 style="margin-bottom: 1em;">Select files from your computer</h4></center>
+						
 						<center><input type="file" name="files" id="fileButton"></center><br>	
 						<progress value="0" max="100" id="uploader" class="col-sm-12">0%</progress>	
 						<form action="/retrive">
-							<center><button type="submit" class="btn btn-success">Get Result</button></center>
+							<center><button type="submit" class="btn btn-dark">Get Result</button></center>
 						</form>	
 					</div>
 				</div>
@@ -77,9 +88,15 @@
 
 		<section class="padding bg-grey" id="blog">
 			<div class="container">
-				<h2 class="section-title">PDF to Word Converter</h2>
+				<center><h2 class="section-title">PDF to Word Converter</h2></center>
 				<div>
-
+					<form method="POST" action="/pdf_to_word_result" enctype=multipart/form-data>
+					    <div class="form-group" align="center">
+					        <input type="file"  name = "file" accept="pdf/*">
+					        <br><br>
+					        <input type="submit" id = "dwn-btn" value="Submit" class="btn btn-dark" />
+					    </div>
+					</form>
 				</div>
 			</div>
 		</section>
@@ -92,39 +109,25 @@
 					<div class="col-sm-6 col-md-4">
 			            <div class="card  mb-3">                  
 			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
+			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%;height:16em;">
 			            	</div>          
 			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
-			                    <p class="card-text"><h5>+91 9920517990</h5></p>
-			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
+			                    <h4 class="card-title">Simran Bhojwani</h4>
+			                    <p class="card-text"><h5>+91 9730645844</h5></p>
+			                    <p class="card-text"><h5>2015simran.bhojwani@ves.ac.in</h5></p>
 			                </div>
 			            </div>
         			</div>
 
         			<div class="col-sm-6 col-md-4">
 			            <div class="card  mb-3">                  
-			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
+			            	<div >
+			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%;height:16em;">
 			            	</div>          
 			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
-			                    <p class="card-text"><h5>+91 9920517990</h5></p>
-			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
-			                </div>
-			            </div>
-        			</div>
-
-
-        			<div class="col-sm-6 col-md-4">
-			            <div class="card  mb-3">                  
-			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
-			            	</div>          
-			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
-			                    <p class="card-text"><h5>+91 9920517990</h5></p>
-			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
+			                    <h4 class="card-title">Riya Karia</h4>
+			                    <p class="card-text"><h5>+91 9922892244</h5></p>
+			                    <p class="card-text"><h5>2015riya.karia@ves.ac.in</h5></p>
 			                </div>
 			            </div>
         			</div>
@@ -133,12 +136,26 @@
         			<div class="col-sm-6 col-md-4">
 			            <div class="card  mb-3">                  
 			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
+			            		<img src="/static/img/nausheen.jpg" class="col-sm-12" style="border-radius: 50%;height:16em;">
 			            	</div>          
 			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
-			                    <p class="card-text"><h5>+91 9920517990</h5></p>
-			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
+			                    <h4 class="card-title">Nausheen Sayed</h4>
+			                    <p class="card-text"><h5>+91 7498278212</h5></p>
+			                    <p class="card-text"><h5>2015nausheen.asif@ves.ac.in</h5></p>
+			                </div>
+			            </div>
+        			</div>
+
+
+        			<div class="col-sm-6 col-md-4">
+			            <div class="card  mb-3">                  
+			            	<div>
+			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%;height:16em;">
+			            	</div>          
+			                <div class="card-body">
+			                    <h4 class="card-title">Harsh Jain</h4>
+			                    <p class="card-text"><h5>+91 9619364367</h5></p>
+			                    <p class="card-text"><h5>2015harsh.jain@ves.ac.in</h5></p>
 			                </div>
 			            </div>
         			</div>
@@ -146,12 +163,12 @@
         			<div class="col-sm-6 col-md-4">
 			            <div class="card  mb-3">                  
 			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
+			            		<img src="/static/img/vishal.jpg" class="col-sm-12" style="border-radius: 50%;height:16em;">
 			            	</div>          
 			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
-			                    <p class="card-text"><h5>+91 9920517990</h5></p>
-			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
+			                    <h4 class="card-title">Vishal Israni</h4>
+			                    <p class="card-text"><h5>+91 8698552370</h5></p>
+			                    <p class="card-text"><h5>2015vishal.israni@ves.ac.in</h5></p>
 			                </div>
 			            </div>
         			</div>
@@ -159,10 +176,10 @@
         			<div class="col-sm-6 col-md-4">
 			            <div class="card  mb-3">                  
 			            	<div>
-			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%">
+			            		<img src="/static/img/hero.jpeg" class="col-sm-12" style="border-radius: 50%;height:16em;">
 			            	</div>          
 			                <div class="card-body">
-			                    <h4 class="card-title">Abid Inadar</h4>
+			                    <h4 class="card-title">Abid Inamdar</h4>
 			                    <p class="card-text"><h5>+91 9920517990</h5></p>
 			                    <p class="card-text"><h5>2015abid.inamdar@ves.ac.in</h5></p>
 			                </div>
@@ -291,7 +308,34 @@
 	  			console.log(imagegpath);
 	  		}
 	  		);
-	  });
+	  	});
+
+		function download(uri, name) {
+			var link = document.createElement('a');
+			link.download = name;
+			link.href = uri;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			delete link;
+			// element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			// element.setAttribute('download', filename);
+
+			// element.style.display = 'none';
+			// document.body.appendChild(element);
+
+			// element.click();
+
+			// document.body.removeChild(element);
+		}
+
+		// document.getElementById("dwn-btn").addEventListener("click", function(){
+		//     // Generate download of hello.txt file with some content
+		//     var text = "Abid Harsh Riya Simran Nausheen";
+		//     var filename = "output.txt";
+		    
+		//     download("https://www.pythonanywhere.com/user/InamdarAbid/files/home/InamdarAbid/Api/pdfs/outputGenerated.txt",filename);
+		// }, false);
 
 	</script>
 	</body>

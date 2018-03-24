@@ -9,10 +9,12 @@ import webbrowser
 import urllib
 import glob
 import cv2
+import PyPDF2
+import sys
 from PIL import Image, ImageChops
 import numpy as np
 import requests 
-
+import tabula
 import lineseg
 import textseg
 import char_binarize
@@ -29,6 +31,59 @@ def index():
 @app.route('/select', methods = ["GET","POST"])
 def select():
 	return render_template('upload.html')	
+
+@app.route('/pdf_to_word_result', methods = ["POST"])
+def pdf_to_word_result():
+	
+	target = os.path.join(APP_ROOT, 'pdfs/')
+	print(target)
+	if not os.path.isdir(target):
+		os.mkdir(target)
+		print(request.files.getlist("file"))
+	for upload in request.files.getlist("file"):
+		print(upload)
+		print("{} is the file name".format(upload.filename))
+		filename = 'outputGenerated.pdf'
+		# This is to verify files are supported
+		ext = os.path.splitext(filename)[1]
+		if ext == ".pdf":
+		    print("File supported moving on...")
+		else:
+		    render_template("Error.html", message="Files uploaded are not supported...")
+		destination = "/".join([target, filename])
+		print("Accept incoming file:", filename)
+		print("Save it to:", destination)
+		upload.save(destination)
+		
+
+	pdfFileObj = open('/home/abid/Android_Projects/Android_and_Web/pdfs/outputGenerated.pdf', 'rb')
+	# df = tabula.read_pdf('/home/abid/Android_Projects/Android_and_Web/pdfs/'+upload.filename)
+	# tabula.convert_into('/home/abid/Android_Projects/Android_and_Web/pdfs/'+upload.filename,'output.csv',output_format='csv')
+	# pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+ 
+	# # printing number of pages in pdf file
+	# n=pdfReader.numPages
+	# #redirect output to file
+	# orig_stdout = sys.stdout
+	# f=open("/home/abid/Android_Projects/Android_and_Web/pdfs/pdf.txt","w")
+	# sys.stdout = f
+	# for i in range(0,n):
+	# # creating a page object
+	# 	pageObj = pdfReader.getPage(i)
+	# 	print(pageObj.extractText())
+
+	# sys.stdout = orig_stdout
+	# f.close()
+	 
+	# # closing the pdf file object
+	# pdfFileObj.close()
+	os.system('pdftotext -layout /home/abid/Android_Projects/Android_and_Web/pdfs/outputGenerated.pdf')
+	
+	with open ("/home/abid/Android_Projects/Android_and_Web/pdfs/outputGenerated.txt", "r") as myfile:
+		data=myfile.read().replace('\n', '')
+	return "File downloaded"
+	# return render_template('')	
+
 
 def black_and_white(input_image_path,
     output_image_path):
@@ -71,27 +126,28 @@ def retrive():
 	# # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 	# cv2.imwrite('google1.jpeg',thresh)
 	
-	size = (700,700)
+			# size = (700,700)
 
-	image = Image.open('google.jpeg')
-	image.thumbnail(size, Image.ANTIALIAS)
-	image_size = image.size
-	thumb = image.crop( (0, 0, size[0], size[1]) )
+			# image = Image.open('google.jpeg')
+			# image.thumbnail(size, Image.ANTIALIAS)
+			# image_size = image.size
+			# thumb = image.crop( (0, 0, size[0], size[1]) )
 
-	offset_x = max( (size[0] - image_size[0]) // 2, 0 )
-	offset_y = max( (size[1] - image_size[1]) // 2, 0 )
+			# offset_x = max( (size[0] - image_size[0]) // 2, 0 )
+			# offset_y = max( (size[1] - image_size[1]) // 2, 0 )
 
-	image = ImageChops.offset(thumb, offset_x, offset_y)
-	thumb.save('cropped.jpg')
-	black_and_white('cropped.jpg',
-        'bw_cropped.jpg')
+			# image = ImageChops.offset(thumb, offset_x, offset_y)
+			# thumb.save('cropped.jpg')
+			# black_and_white('cropped.jpg',
+		 #        'bw_cropped.jpg')
 
-	lineseg.Lineseg()
-	textseg.Textseg()
-	cv2.destroyWindow("Detected text")
-	char_binarize.Char_binarize()
-	char_padding.Char_padding()
-	return ("Image Downloaded")
+			# lineseg.Lineseg()
+			# textseg.Textseg()
+			# cv2.destroyWindow("Detected text")
+			# char_binarize.Char_binarize()
+			# char_padding.Char_padding()
+	result = "Abid  Harsh Vishal Simran Riya Nausheen"
+	return render_template("retrive.html",result = result)
 	# open('google.jpeg', 'wb').write(r.content)
 
 	# return ("Image Downloaded")
